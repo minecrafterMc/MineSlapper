@@ -1,2 +1,3 @@
-# cellEngine
-A simple engine for creating canvas games/animations/programs
+# MineSlapper
+A scuffed version of Minesweeper made in javascript
+built on CellEngine
