@@ -1,3 +1,4 @@
+console.log("script imported");
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 ctx.font = "12px Arial";
@@ -13,5 +14,7 @@ function tick()
 {
   
 }
-setup()
-const ticks = setInterval(tick, 1000 / TicksPerSec)
+setup();
+const ticks = setInterval(tick, 1000 / TicksPerSec);
+var cursor = new Cell(5,5,"black","","white","cursor",1);
+cursor.drawCell();

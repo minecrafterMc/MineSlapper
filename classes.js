@@ -1,3 +1,4 @@
+console.log("classes imported");
 class Cell
 {
   constructor(x,y,color,text,textColor,CellType,id)
@@ -28,12 +29,20 @@ class Cell
       this.textColor = "darkred";
       this.textSize = CellWidth / text.length;
       this.id = id;
+      this.bomb = false;
+      this.marked = false;
+      this.slapped = false;
     }
   }
   drawCell()
   {
     ctx.fillStyle = this.color;
     ctx.fillRect(this.x,this.y,CellWidth,CellHeight);
+    if (this.CellType == "cursor")
+    {
+      ctx.fillStyle = Board[this.bp].color;
+      ctx.fillRect(this.x + CellWidth / 4,this.y + CellWidth / 4,CellWidth/2,CellHeight/2);
+    }
   }
   drawText()
   {
@@ -47,7 +56,7 @@ class Cell
     {
     let ocolor = this.color;
     let otcolor = this.textColor;
-    this.color = BackgroundColor;
+    this.color = Board[this.bp].color;
     this.drawCell();
     this.color = ocolor;
     this.textColor = otcolor;
@@ -63,7 +72,7 @@ class Cell
     tp(x,y)
     {
       let ocolor = this.color;
-      this.color = BackgroundColor;
+      this.color = Board[this.bp].color;
       this.drawCell();
       this.color = ocolor;
       this.bx = x;
@@ -125,4 +134,47 @@ function setup()
       i += 1;
       
     }
+}
+function slap(id)
+{
+  if (!Board[id].slapped)
+  {
+    Board[id].slapped = true;
+    Board[id].color = "white";
+    Board[id].drawCell();
+    cursor.drawCell();
+    checkAround(id);
+  }
+}
+function checkAround(id)
+{
+  let i = 1;
+  let a = 0;
+  let pos = Board[id].bp - 1 - Columns;
+  let b = 1;
+  while (i != 9)
+  {
+    if (Board[pos].bomb)
+    {
+      a += 1;
+    }
+    i += 1;
+    b += 1;
+    pos += 1;
+    if (b == 4)
+    {
+      b = 1;
+      pos = pos + Columns - 3;
+    }
+  }
+  Board[id].text = a;
+  Board[id].drawText();
+}
+function displayDiscoveredText()
+{
+  let i = 1;
+  while(i != SpacesOnGrid)
+  {
+    
+  }
 }
