@@ -281,7 +281,7 @@ function generateBombs(count)
 }
 function winCheck()
 {
-  if (markedBombs == markers && bombs == 0 && pslapped)
+  if (markedBombs == markers && bombs == markedBombs && pslapped)
   {
     console.log("win")
   }
