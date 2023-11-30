@@ -96,6 +96,11 @@ class Cell
       this.type = to;
     }
   }
+function RandomInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1) + min);
+}
 function setup()
 {
     let i = OutlineSize + CellWidth;
@@ -145,11 +150,16 @@ function setup()
 }
 function slap(id)
 {
+  if (!pslapped)
+  {
+    generateBombs(5);
+    pslapped = true;
+  }
   if (Board[id].bomb)
   {
     console.log("ded")
   }
-  else if (!Board[id].slapped)
+  else if (!Board[id].slapped && !Board[id].marked)
   {
     Board[id].slapped = true;
     Board[id].color = "white";
@@ -165,22 +175,47 @@ function checkAround(id)
   let i = 0;
   let a = 0;
   let pos = Board[id].bp - 1 - Columns;
+  let column = Board[id].bx - 1;
+  let row = Board[id].by - 1;
   let b = 1;
   while (i != 9)
   {
+    if (row > Rows)
+    {
+      break;
+    }
+    if (column > 0 && column <= Columns)
+    {
     if (Board[pos].bomb)
     {
+      if (Board[pos].bx == cursor.bx - 1 || Board[pos].bx == cursor.bx || Board[pos].bx == cursor.bx + 1)
+      {
       a += 1;
+      }
     }
+  }
     i += 1;
     b += 1;
+    column += 1;
     pos += 1;
     if (b == 4)
     {
       b = 1;
+      column = Board[id].bx - 1
+      row += 1;
       pos = pos + Columns - 3;
     }
-    console.log(Board[pos].bomb + "  " + Board[pos].id)
+    if (column > Columns)
+    {
+      b = 1;
+      column = Board[id].bx - 1
+      row += 1;
+      pos = pos + Columns - 3;
+    }
+    if (pos < SpacesOnGrid)
+    {
+    console.log(Board[pos].bomb + "  " + Board[pos].id + "   " + a)
+    }
   }
   Board[id].color = DangerColors[a];
   Board[id].text = a;
@@ -190,12 +225,50 @@ function checkAround(id)
 function displayDiscoveredText()
 {
   let i = 1;
-  while(i != SpacesOnGrid)
+  while(i != SpacesOnGrid + 1)
   {
     if (Board[i].slapped)
     {
     Board[i].drawText();
     }
     i += 1;
+  }
+}
+function mark(id)
+{
+  if (!Board[id].marked)
+  {
+    Board[id].marked = true;
+    if (Board[id].bomb)
+    {
+      markedBombs += 1;
+    }
+    Board[id].color = "red";
+    Board[id].drawCell();
+    cursor.drawCell();
+  }
+  else 
+  {
+    Board[id].marked = false;
+    if (Board[id].bomb)
+    {
+      markedBombs -= 1;
+    }
+    Board[id].color = "green";
+    Board[id].drawCell();
+    cursor.drawCell();
+  }
+}
+function generateBombs(count)
+{
+  let i = RandomInt(1,SpacesOnGrid);
+  while (count > 0)
+  {
+    while (Board[i].bomb && Board[i].slapped)
+    {
+      i = RandomInt(1,SpacesOnGrid);
+    }
+    Board[i].bomb = true;
+    count -= 1;
   }
 }

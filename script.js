@@ -10,6 +10,8 @@ const SpacesOnGrid = Rows * Columns;
 document.getElementById("canvas").width = CanvasWidth;
 document.getElementById("canvas").height = CanvasHeight;
 var Board = [];
+var markedBombs = 0;
+var pslapped = false;
 function tick()
 {
   displayDiscoveredText();
