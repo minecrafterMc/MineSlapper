@@ -1,4 +1,5 @@
 console.log("classes imported");
+let DangerColors = ["white","lightyellow","lightyellow","yellow","yellow","lightred","lightred","red","darkred"];
 class Cell
 {
   constructor(x,y,color,text,textColor,CellType,id)
@@ -26,7 +27,7 @@ class Cell
       this.color = BackgroundColor;
       this.text = text;
       this.CellType = "empty";
-      this.textColor = "darkred";
+      this.textColor = "black";
       this.textSize = CellWidth / text.length;
       this.id = id;
       this.bomb = false;
@@ -60,11 +61,18 @@ class Cell
     this.drawCell();
     this.color = ocolor;
     this.textColor = otcolor;
+    
     this.bx += x;
     this.by += y;
     this.bp += x * 1 + y * Columns;
     this.x = OutlineSize + (this.bx - 1) * CellWidth + (this.bx - 1) * BorderSize;
     this.y = OutlineSize + (this.by - 1) * CellHeight + (this.by - 1) * BorderSize;
+    if (Board[this.bp].slapped) {
+      this.text = Board[this.bp].text;
+      }
+      else {
+        this.text = "";
+      }
     this.drawCell();
     this.drawText();
     }
@@ -137,18 +145,24 @@ function setup()
 }
 function slap(id)
 {
-  if (!Board[id].slapped)
+  if (Board[id].bomb)
+  {
+    console.log("ded")
+  }
+  else if (!Board[id].slapped)
   {
     Board[id].slapped = true;
     Board[id].color = "white";
     Board[id].drawCell();
     cursor.drawCell();
     checkAround(id);
+    cursor.drawCell();
+    cursor.drawText();
   }
 }
 function checkAround(id)
 {
-  let i = 1;
+  let i = 0;
   let a = 0;
   let pos = Board[id].bp - 1 - Columns;
   let b = 1;
@@ -166,8 +180,11 @@ function checkAround(id)
       b = 1;
       pos = pos + Columns - 3;
     }
+    console.log(Board[pos].bomb + "  " + Board[pos].id)
   }
+  Board[id].color = DangerColors[a];
   Board[id].text = a;
+  Board[id].drawCell();
   Board[id].drawText();
 }
 function displayDiscoveredText()
@@ -175,6 +192,10 @@ function displayDiscoveredText()
   let i = 1;
   while(i != SpacesOnGrid)
   {
-    
+    if (Board[i].slapped)
+    {
+    Board[i].drawText();
+    }
+    i += 1;
   }
 }

@@ -12,7 +12,7 @@ document.getElementById("canvas").height = CanvasHeight;
 var Board = [];
 function tick()
 {
-  
+  displayDiscoveredText();
 }
 setup();
 const ticks = setInterval(tick, 1000 / TicksPerSec);
