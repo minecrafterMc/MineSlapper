@@ -12,9 +12,12 @@ document.getElementById("canvas").height = CanvasHeight;
 var Board = [];
 var markedBombs = 0;
 var pslapped = false;
+var bombs = 0;
+var markers = 0;
 function tick()
 {
   displayDiscoveredText();
+  winCheck();
 }
 setup();
 const ticks = setInterval(tick, 1000 / TicksPerSec);

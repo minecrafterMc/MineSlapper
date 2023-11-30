@@ -155,7 +155,7 @@ function slap(id)
     generateBombs(5);
     pslapped = true;
   }
-  if (Board[id].bomb)
+  if (Board[id].bomb && !Board[id].marked)
   {
     console.log("ded")
   }
@@ -184,7 +184,7 @@ function checkAround(id)
     {
       break;
     }
-    if (column > 0 && column <= Columns)
+    if (column > 0 && column <= Columns && row > 0 && row <= Rows)
     {
     if (Board[pos].bomb)
     {
@@ -212,7 +212,7 @@ function checkAround(id)
       row += 1;
       pos = pos + Columns - 3;
     }
-    if (pos < SpacesOnGrid)
+    if (pos < SpacesOnGrid && pos > 0)
     {
     console.log(Board[pos].bomb + "  " + Board[pos].id + "   " + a)
     }
@@ -238,7 +238,10 @@ function mark(id)
 {
   if (!Board[id].marked)
   {
+    if(!Board[id].slapped)
+    {
     Board[id].marked = true;
+    markers += 1;
     if (Board[id].bomb)
     {
       markedBombs += 1;
@@ -247,9 +250,11 @@ function mark(id)
     Board[id].drawCell();
     cursor.drawCell();
   }
+  }
   else 
   {
     Board[id].marked = false;
+    markers -= 1;
     if (Board[id].bomb)
     {
       markedBombs -= 1;
@@ -264,11 +269,20 @@ function generateBombs(count)
   let i = RandomInt(1,SpacesOnGrid);
   while (count > 0)
   {
+    i = RandomInt(1,SpacesOnGrid);
     while (Board[i].bomb && Board[i].slapped)
     {
       i = RandomInt(1,SpacesOnGrid);
     }
     Board[i].bomb = true;
+    bombs += 1;
     count -= 1;
+  }
+}
+function winCheck()
+{
+  if (markedBombs == markers && bombs == 0 && pslapped)
+  {
+    console.log("win")
   }
 }
