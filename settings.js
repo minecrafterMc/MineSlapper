@@ -1,10 +1,10 @@
 console.log("settings imported");
-const BorderColor = "lime";
+const BorderColor = "darkgreen";
 const OutlineColor = "black";
 const BackgroundColor = "green";
 const CellHeight = 30;
 const CellWidth = 30;
-const BorderSize = 0;
+const BorderSize = 5;
 const OutlineSize = 10;
 const Columns = 9;
 const Rows = 9;

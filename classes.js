@@ -1,5 +1,5 @@
 console.log("classes imported");
-let DangerColors = ["white","lightyellow","lightyellow","yellow","yellow","lightred","lightred","red","darkred"];
+let DangerColors = ["white","lightyellow","lightyellow","yellow","yellow","lightred","lightred","red","darkred","darkred"];
 class Cell
 {
   constructor(x,y,color,text,textColor,CellType,id)
@@ -152,12 +152,13 @@ function slap(id)
 {
   if (!pslapped)
   {
-    generateBombs(5);
+    generateBombs(8);
     pslapped = true;
   }
   if (Board[id].bomb && !Board[id].marked)
   {
-    console.log("ded")
+    console.log("ded");
+    document.getElementById("controlls").style.display = "none";
   }
   else if (!Board[id].slapped && !Board[id].marked)
   {
@@ -168,6 +169,7 @@ function slap(id)
     checkAround(id);
     cursor.drawCell();
     cursor.drawText();
+    slapnum += 1;
   }
 }
 function checkAround(id)
@@ -210,11 +212,7 @@ function checkAround(id)
       b = 1;
       column = Board[id].bx - 1
       row += 1;
-      pos = pos + Columns - 3;
-    }
-    if (pos < SpacesOnGrid && pos > 0)
-    {
-    console.log(Board[pos].bomb + "  " + Board[pos].id + "   " + a)
+      pos = pos + Columns - 2;
     }
   }
   Board[id].color = DangerColors[a];
@@ -286,3 +284,4 @@ function winCheck()
     console.log("win")
   }
 }
+var debug = false;
