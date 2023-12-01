@@ -1,4 +1,4 @@
-console.log("classes imported");
+
 let DangerColors = ["white","lightyellow","lightyellow","yellow","yellow","lightred","lightred","red","darkred","darkred"];
 class Cell
 {
