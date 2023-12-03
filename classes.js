@@ -192,8 +192,15 @@ function checkAround(id)
     {
       if (Board[pos].bx == cursor.bx - 1 || Board[pos].bx == cursor.bx || Board[pos].bx == cursor.bx + 1)
       {
+        if (Board[pos].by == cursor.by - 1 || Board[pos].by == cursor.by || Board[pos].by == cursor.by + 1)
+        {
       a += 1;
+        }
       }
+    }
+    if (debug)
+    {
+      console.log(Board[pos].bp + "   " + Board[i].bomb)
     }
   }
     i += 1;
