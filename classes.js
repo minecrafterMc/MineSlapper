@@ -198,6 +198,10 @@ function checkAround(id)
         }
       }
     }
+    else if (autoslap)
+    {
+      aslap(pos);
+    }
     if (debug)
     {
       console.log(Board[pos].bp + "   " + Board[i].bomb)
@@ -283,6 +287,98 @@ function generateBombs(count)
     bombs += 1;
     count -= 1;
   }
+}
+async function aslap(id)
+{
+  let i = 0;
+  let a = 0;
+  let pos = Board[id].bp - 1 - Columns;
+  let column = Board[id].bx - 1;
+  let row = Board[id].by - 1;
+  let b = 1;
+  while (i != 9)
+  {
+    if (row > Rows)
+    {
+      break;
+    }
+    if (column > 0 && column <= Columns && row > 0 && row <= Rows)
+    {
+    if (Board[pos].bomb)
+    {
+      if (Board[pos].bx == cursor.bx - 1 || Board[pos].bx == cursor.bx || Board[pos].bx == cursor.bx + 1)
+      {
+        if (Board[pos].by == cursor.by - 1 || Board[pos].by == cursor.by || Board[pos].by == cursor.by + 1)
+        {
+      a += 1;
+        }
+      }
+    }
+    
+    if (debug)
+    {
+      console.log(Board[pos].bp + "   " + Board[i].bomb)
+    }
+  }
+    i += 1;
+    b += 1;
+    column += 1;
+    pos += 1;
+    if (b == 4)
+    {
+      b = 1;
+      column = Board[id].bx - 1
+      row += 1;
+      pos = pos + Columns - 3;
+    }
+    if (column > Columns)
+    {
+      b = 1;
+      column = Board[id].bx - 1
+      row += 1;
+      pos = pos + Columns - 2;
+    }
+    await resolveAfter2Seconds(20);
+  }
+  if (autoslap && a == 0)
+    {
+       i = 0;
+       pos = Board[id].bp - 1 - Columns;
+       column = Board[id].bx - 1;
+       row = Board[id].by - 1;
+       b = 1;
+      while (i != 9)
+      {
+        if (row > Rows)
+        {
+          break;
+        }   
+      slap(pos);
+      aslap(pos);
+      i += 1;
+      b += 1;
+      column += 1;
+      pos += 1;
+      if (b == 4)
+      {
+        b = 1;
+        column = Board[id].bx - 1
+        row += 1;
+        pos = pos + Columns - 3;
+      }
+      if (column > Columns)
+      {
+        b = 1;
+        column = Board[id].bx - 1
+        row += 1;
+        pos = pos + Columns - 2;
+      }
+      }
+    }
+  Board[id].color = DangerColors[a];
+  Board[id].text = a;
+  Board[id].drawCell();
+  Board[id].drawText();
 }
 function winCheck()
 {

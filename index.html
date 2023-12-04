@@ -1,25 +1,27 @@
 <!doctype html>
 <html>
     <head>
-
+      <link rel="stylesheet" href="style.css">
     </head>
     <body>
-      <center>
+      <div id="settingsMenu">
+        
+      </div>
+      
         <canvas id="canvas" width="100" height="100"></canvas>
        <br>
        <div id="controlls">
-       <button onclick="cursor.move(0,-1)">up</button>
+       <button class="buttons" id="upButton" onclick="cursor.move(0,-1)">up</button>
        <br>
-         <button onclick="cursor.move(-1,0)">left</button>
-        <button onclick="cursor.move(1,0)">right</button>
+         <button class="buttons" id="leftButton" onclick="cursor.move(-1,0)">left</button>
+        <button class="buttons" id="rightButton" onclick="cursor.move(1,0)">right</button>
         <br>
-        <button onclick="cursor.move(0,1)">down</button>
+        <button class="buttons" id="downButton" onclick="cursor.move(0,1)">down</button>
         <br>
-        <button onclick="slap(cursor.bp)">slap</button>
-        <!--<button onclick="Board[cursor.bp].bomb = true">place bomb</button>-->
-        <button onclick="mark(cursor.bp)">place marker</button>
+        <button class="buttons" id="slapButton" onclick="slap(cursor.bp)">slap</button>
+        <button class="buttons" id="markButton" onclick="mark(cursor.bp)">place marker</button>
         </div>
-         </center>
+         
         <script src="CellEngine.js"></script>
     </body>
 </html>
