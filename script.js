@@ -19,16 +19,28 @@ document.getElementById("slapButton").style.top = CanvasHeight + 20 + "px";
 document.getElementById("slapButton").style.left = CanvasWidth / 2 - 100 - 10 + "px";
 document.getElementById("markButton").style.left = CanvasWidth / 2 + 10 + "px";
 document.getElementById("markButton").style.top = CanvasHeight + 20 + "px";
+document.getElementById("settingsButton").style.top = CanvasHeight + 140 + "px";
+document.getElementById("settingsButton").style.left = CanvasWidth / 2 - 50 + "px";
+document.getElementById("settingsMenu").style.display = "none";
+document.getElementById("settingsMenu").style.left = CanvasWidth / 2 - 50 + "px";
 var Board = [];
 var markedBombs = 0;
 var pslapped = false;
 var autoslap = false;
+var settingsop = false;
+var online = false;
 var bombs = 0;
 var markers = 0;
+var movesLeft = 3;
 function tick()
 {
   displayDiscoveredText();
   winCheck();
+  if(online)
+  {
+    postOnline();
+    getOnline();
+  }
 }
 setup();
 const ticks = setInterval(tick, 1000 / TicksPerSec);

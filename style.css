@@ -49,3 +49,18 @@ body
 {
   background-color: lightgreen;
 }
+#settingsMenu
+{
+  position: absolute;
+  z-index: 1;
+  background-color: grey;
+  opacity: 80%;
+}
+#settingsButton 
+{
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  opacity: 100%;
+  background-color: darkgreen;
+}

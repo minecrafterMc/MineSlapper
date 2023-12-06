@@ -147,10 +147,26 @@ function setup()
       i += 1;
       
     }
+    try {
+    let data = sessionStorage.getItem("online");
+    console.log(data);
+    if (sessionStorage.getItem("online") == "true")
+    {
+      online = true;
+    }
+}
+finally
+{
+  let t = 0;
+}
+if (online)
+{
+  ecursor = new Cell(5,5,"red","","white","cursor",1);
+}
 }
 function slap(id)
 {
-  if (!pslapped)
+  if (!pslapped && !online)
   {
     generateBombs(8);
     pslapped = true;
@@ -158,7 +174,10 @@ function slap(id)
   if (Board[id].bomb && !Board[id].marked)
   {
     console.log("ded");
+    if (!online)
+    {
     document.getElementById("controlls").style.display = "none";
+    }
   }
   else if (!Board[id].slapped && !Board[id].marked)
   {
@@ -386,5 +405,41 @@ function winCheck()
   {
     console.log("win")
   }
+}
+function opensettings()
+{
+  if (settingsop)
+  {
+    document.getElementById("settingsMenu").style.display = "none";
+    settingsop = false;
+  }
+  else 
+  {
+    document.getElementById("settingsMenu").style.display = "block";
+    settingsop = true;
+  }
+}
+function saveSettings()
+{
+  autoslap = document.getElementById("autoslapCheckbox").checked;
+  online = document.getElementById("onlineCheckbox").checked;
+  if (online)
+  {
+    sessionStorage.setItem("online", [online]);
+    location.reload();
+  }
+}
+function connect()
+{
+  
+}
+function getOnline()
+{
+  cursor.drawCell()
+  ecursor.drawCell()
+}
+function postOnline()
+{
+  
 }
 var debug = false;
