@@ -28,10 +28,15 @@
         </div>
          <button id="settingsButton" onclick="opensettings()">Settings</button>
         <script src="CellEngine.js"></script>
-        <input id="phpCom" type="hidden">
+        <form method="post" name="phpPost" action="<?php echo $_SERVER['PHP_SELF'];?>">
+        <input id="phpCom" name="phpOutInput" type="hidden">
+      </form>
         <?php
-        $test = "test";
-        echo "$test";
+        if ($_SERVER["REQUEST_METHOD"] == "POST") 
+        {
+          $test = $_POST['phpOutInput'];
+          echo $test;
+        }
         ?>
     </body>
 </html>

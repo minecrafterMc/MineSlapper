@@ -435,11 +435,13 @@ function connect()
 }
 function getOnline()
 {
+  test = '<?php echo $test; ?>';
   cursor.drawCell()
-  ecursor.drawCell()
+  //ecursor.drawCell()
 }
-function postOnline()
+function postOnline(variable)
 {
-  
+  document.phpPost.submit();
 }
+var test = 0;
 var debug = false;
