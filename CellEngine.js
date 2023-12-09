@@ -5,6 +5,7 @@ function resolveAfter2Seconds(ms) {
     }, ms);
   });
 }
+const remoteStorage = new RemoteStorage();
 const settings = document.createElement('script');
 const classes = document.createElement('script');
 const script = document.createElement('script');
